@@ -1,4 +1,4 @@
-Pequeño juego con temática *idle game*. Exitirán entidades que periodicamente y de forma concurrente modifican los recursos del juego. Periodicamente se reporta por pantalla el nivel de dichos recursos.
+Pequeño juego con temática *idle game*. Exitirán entidades que periodicamente y de forma concurrente modifican los recursos del juego.
 
 ## Recursos
 
@@ -13,3 +13,4 @@ Pequeño juego con temática *idle game*. Exitirán entidades que periodicamente
 - Los comerciantes venderan pociones por oro.
 - Los ladrones robaran oro.
 - Los torpes destruiran pociones.
+- Los registradores reportaran el estado del juego.
