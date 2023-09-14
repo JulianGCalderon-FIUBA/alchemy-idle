@@ -5,11 +5,11 @@ use crate::storage::Storage;
 
 use super::Entity;
 
-pub struct Gatherer {
+pub struct Logger {
     _resources: Storage,
 }
 
-impl Gatherer {
+impl Logger {
     pub fn new(resources: &Storage) -> Self {
         let resources = resources.clone();
         Self {
@@ -18,12 +18,12 @@ impl Gatherer {
     }
 }
 
-impl Entity for Gatherer {
+impl Entity for Logger {
     fn rest(&mut self) {
         thread::sleep(Duration::from_secs(1));
     }
 
     fn work(&mut self) {
-        println!("Gatherer: I'm going to work!");
+        println!("Logger: I'm going to work!");
     }
 }

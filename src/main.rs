@@ -1,4 +1,6 @@
 use entity::gatherer::Gatherer;
+use entity::logger::Logger;
+use entity::Entity;
 use storage::Storage;
 
 pub mod entity;
@@ -9,9 +11,12 @@ const INITIAL_GOLD: usize = 100;
 fn main() {
     let storage = Storage::new(INITIAL_GOLD);
 
-    let gatherer = Gatherer::new(&storage);
+    let handles = vec![
+        Gatherer::new(&storage).start(),
+        Logger::new(&storage).start(),
+    ];
 
-    let handle = gatherer.start();
-
-    handle.join().unwrap();
+    for handle in handles {
+        handle.join().unwrap();
+    }
 }
