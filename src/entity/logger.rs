@@ -6,14 +6,16 @@ use crate::storage::Storage;
 use super::Entity;
 
 pub struct Logger {
-    _resources: Storage,
+    resources: Storage,
+    day: usize,
 }
 
 impl Logger {
     pub fn new(resources: &Storage) -> Self {
         let resources = resources.clone();
         Self {
-            _resources: resources.clone(),
+            resources: resources.clone(),
+            day: 1,
         }
     }
 }
@@ -21,9 +23,17 @@ impl Logger {
 impl Entity for Logger {
     fn rest(&mut self) {
         thread::sleep(Duration::from_secs(1));
+        self.day += 1;
     }
 
     fn work(&mut self) {
-        println!("Logger: I'm going to work!");
+        let gold = self.resources.gold();
+        let ingredients = self.resources.ingredients();
+        let potions = self.resources.potions();
+
+        println!("Day {}:", self.day);
+        println!("\tGold: {}", gold);
+        println!("\tIngredients: {}", ingredients);
+        println!("\tPotions: {}", potions);
     }
 }

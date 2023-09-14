@@ -6,14 +6,14 @@ use crate::storage::Storage;
 use super::Entity;
 
 pub struct Gatherer {
-    _resources: Storage,
+    resources: Storage,
 }
 
 impl Gatherer {
     pub fn new(resources: &Storage) -> Self {
         let resources = resources.clone();
         Self {
-            _resources: resources.clone(),
+            resources: resources.clone(),
         }
     }
 }
@@ -24,6 +24,8 @@ impl Entity for Gatherer {
     }
 
     fn work(&mut self) {
-        println!("Gatherer: I'm going to work!");
+        if self.resources.extract_gold(10) {
+            self.resources.add_ingredients(3);
+        }
     }
 }
