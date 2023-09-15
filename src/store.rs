@@ -22,6 +22,12 @@ impl Store {
         self.gold.read().unwrap().clone()
     }
 
+    pub fn add_gold(&self, amount: usize) {
+        let mut gold = self.gold.write().unwrap();
+
+        *gold += amount;
+    }
+
     pub fn extract_gold(&self, amount: usize) -> bool {
         let mut gold = self.gold.write().unwrap();
 
@@ -44,8 +50,38 @@ impl Store {
         *ingredients += amount;
     }
 
+    pub fn extract_ingredients(&self, amount: usize) -> bool {
+        let mut ingredients = self.ingredients.write().unwrap();
+
+        if *ingredients < amount {
+            return false;
+        }
+
+        *ingredients -= amount;
+
+        true
+    }
+
     pub fn potions(&self) -> usize {
         self.potions.read().unwrap().clone()
+    }
+
+    pub fn add_potions(&self, amount: usize) {
+        let mut potions = self.potions.write().unwrap();
+
+        *potions += amount;
+    }
+
+    pub fn extract_potions(&self, amount: usize) -> bool {
+        let mut potions = self.potions.write().unwrap();
+
+        if *potions < amount {
+            return false;
+        }
+
+        *potions -= amount;
+
+        true
     }
 
     pub fn close(&self) {
