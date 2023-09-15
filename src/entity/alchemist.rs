@@ -24,7 +24,7 @@ impl Entity for Alchemist {
     }
 
     fn work(&mut self) {
-        if self.store.extract_ingredients(7) {
+        if self.store.extract_ingredients(6) {
             self.store.add_potions(2);
         }
     }

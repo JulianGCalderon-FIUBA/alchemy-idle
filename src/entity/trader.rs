@@ -25,7 +25,7 @@ impl Entity for Trader {
 
     fn work(&mut self) {
         if self.store.extract_potions(1) {
-            self.store.add_gold(30);
+            self.store.add_gold(15);
         }
     }
 

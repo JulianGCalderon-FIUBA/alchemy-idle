@@ -3,6 +3,7 @@ use std::sync::Arc;
 use entity::alchemist::Alchemist;
 use entity::gatherer::Gatherer;
 use entity::logger::Logger;
+use entity::thief::Thief;
 use entity::trader::Trader;
 use entity::Entity;
 use store::Store;
@@ -20,6 +21,7 @@ fn main() {
         Logger::new(&store).start(),
         Alchemist::new(&store).start(),
         Trader::new(&store).start(),
+        Thief::new(&store).start(),
     ];
 
     ctrlc::set_handler(move || {

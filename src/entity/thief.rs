@@ -7,7 +7,8 @@ use crate::store::Store;
 
 use super::Entity;
 
-const MAX_GOLD_TO_STEAL: usize = 25;
+const MIN_GOLD_TO_STEAL: usize = 3;
+const MAX_GOLD_TO_STEAL: usize = 9;
 
 pub struct Thief {
     store: Arc<Store>,
@@ -27,7 +28,8 @@ impl Entity for Thief {
     }
 
     fn work(&mut self) {
-        let gold_to_steal = random::<Option<usize>>().map(|gold| gold % MAX_GOLD_TO_STEAL);
+        let gold_to_steal = random::<Option<usize>>()
+            .map(|gold| gold % (MAX_GOLD_TO_STEAL - MIN_GOLD_TO_STEAL) + MIN_GOLD_TO_STEAL);
 
         if let Some(gold) = gold_to_steal {
             self.store.drain_gold(gold);
