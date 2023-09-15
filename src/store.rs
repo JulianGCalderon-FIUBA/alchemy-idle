@@ -1,18 +1,20 @@
-use std::sync::{Arc, RwLock};
+use std::sync::atomic::AtomicBool;
+use std::sync::RwLock;
 
-#[derive(Clone)]
-pub struct Storage {
-    gold: Arc<RwLock<usize>>,
-    ingredients: Arc<RwLock<usize>>,
-    potions: Arc<RwLock<usize>>,
+pub struct Store {
+    gold: RwLock<usize>,
+    ingredients: RwLock<usize>,
+    potions: RwLock<usize>,
+    open: AtomicBool,
 }
 
-impl Storage {
+impl Store {
     pub fn new(initial_gold: usize) -> Self {
         Self {
-            gold: Arc::new(RwLock::new(initial_gold)),
-            ingredients: Arc::new(RwLock::new(0)),
-            potions: Arc::new(RwLock::new(0)),
+            gold: RwLock::new(initial_gold),
+            ingredients: RwLock::new(0),
+            potions: RwLock::new(0),
+            open: AtomicBool::new(true),
         }
     }
 
@@ -44,5 +46,13 @@ impl Storage {
 
     pub fn potions(&self) -> usize {
         self.potions.read().unwrap().clone()
+    }
+
+    pub fn close(&self) {
+        self.open.store(false, std::sync::atomic::Ordering::Relaxed);
+    }
+
+    pub fn is_open(&self) -> bool {
+        self.open.load(std::sync::atomic::Ordering::Relaxed)
     }
 }

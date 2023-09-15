@@ -1,20 +1,24 @@
+use std::sync::Arc;
+
 use entity::gatherer::Gatherer;
 use entity::logger::Logger;
 use entity::Entity;
-use storage::Storage;
+use store::Store;
 
 pub mod entity;
-pub mod storage;
+pub mod store;
 
 const INITIAL_GOLD: usize = 100;
 
 fn main() {
-    let storage = Storage::new(INITIAL_GOLD);
+    let store = Arc::new(Store::new(INITIAL_GOLD));
 
-    let handles = vec![
-        Gatherer::new(&storage).start(),
-        Logger::new(&storage).start(),
-    ];
+    let handles = vec![Gatherer::new(&store).start(), Logger::new(&store).start()];
+
+    ctrlc::set_handler(move || {
+        store.close();
+    })
+    .expect("Error setting Ctrl-C handler");
 
     for handle in handles {
         handle.join().unwrap();

@@ -1,17 +1,17 @@
+use std::sync::Arc;
 use std::thread;
 use std::time::Duration;
 
-use crate::storage::Storage;
+use crate::store::Store;
 
 use super::Entity;
 
 pub struct Gatherer {
-    resources: Storage,
+    resources: Arc<Store>,
 }
 
 impl Gatherer {
-    pub fn new(resources: &Storage) -> Self {
-        let resources = resources.clone();
+    pub fn new(resources: &Arc<Store>) -> Self {
         Self {
             resources: resources.clone(),
         }
@@ -27,5 +27,9 @@ impl Entity for Gatherer {
         if self.resources.extract_gold(10) {
             self.resources.add_ingredients(3);
         }
+    }
+
+    fn alive(&self) -> bool {
+        true
     }
 }

@@ -1,20 +1,20 @@
+use std::sync::Arc;
 use std::thread;
 use std::time::Duration;
 
-use crate::storage::Storage;
+use crate::store::Store;
 
 use super::Entity;
 
 pub struct Logger {
-    resources: Storage,
+    store: Arc<Store>,
     day: usize,
 }
 
 impl Logger {
-    pub fn new(resources: &Storage) -> Self {
-        let resources = resources.clone();
+    pub fn new(resources: &Arc<Store>) -> Self {
         Self {
-            resources: resources.clone(),
+            store: resources.clone(),
             day: 1,
         }
     }
@@ -27,13 +27,17 @@ impl Entity for Logger {
     }
 
     fn work(&mut self) {
-        let gold = self.resources.gold();
-        let ingredients = self.resources.ingredients();
-        let potions = self.resources.potions();
+        let gold = self.store.gold();
+        let ingredients = self.store.ingredients();
+        let potions = self.store.potions();
 
         println!("Day {}:", self.day);
         println!("\tGold: {}", gold);
         println!("\tIngredients: {}", ingredients);
         println!("\tPotions: {}", potions);
+    }
+
+    fn alive(&self) -> bool {
+        self.store.is_open()
     }
 }
