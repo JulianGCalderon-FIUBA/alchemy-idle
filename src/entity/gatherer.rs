@@ -7,13 +7,13 @@ use crate::store::Store;
 use super::Entity;
 
 pub struct Gatherer {
-    resources: Arc<Store>,
+    store: Arc<Store>,
 }
 
 impl Gatherer {
     pub fn new(resources: &Arc<Store>) -> Self {
         Self {
-            resources: resources.clone(),
+            store: resources.clone(),
         }
     }
 }
@@ -24,12 +24,12 @@ impl Entity for Gatherer {
     }
 
     fn work(&mut self) {
-        if self.resources.extract_gold(10) {
-            self.resources.add_ingredients(3);
+        if self.store.extract_gold(10) {
+            self.store.add_ingredients(3);
         }
     }
 
     fn alive(&self) -> bool {
-        true
+        self.store.is_open()
     }
 }
