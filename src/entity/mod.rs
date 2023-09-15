@@ -2,6 +2,7 @@ pub mod gatherer;
 pub mod logger;
 pub mod alchemist;
 pub mod trader;
+pub mod thief;
 
 pub trait Entity: Sized + Send + 'static {
     fn work(&mut self);
