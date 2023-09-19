@@ -1,6 +1,4 @@
 use std::sync::Arc;
-use std::thread;
-use std::time::Duration;
 
 use crate::store::Store;
 use crate::utils::random;

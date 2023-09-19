@@ -1,9 +1,7 @@
 use std::sync::Arc;
-use std::thread::{self, JoinHandle};
-use std::time::Duration;
+use std::thread::JoinHandle;
 
 use crate::store::Store;
-use crate::utils::random;
 
 use super::alchemist::Alchemist;
 use super::gatherer::Gatherer;
