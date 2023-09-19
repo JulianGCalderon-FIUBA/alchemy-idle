@@ -43,9 +43,7 @@ impl Store {
     pub fn drain_gold(&self, amount: usize) {
         let mut gold = self.gold.write().unwrap();
 
-        let amount = gold.min(amount);
-
-        *gold -= amount;
+        *gold = gold.saturating_sub(amount)
     }
 
     pub fn ingredients(&self) -> usize {

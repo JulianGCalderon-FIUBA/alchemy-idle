@@ -5,8 +5,8 @@ use crate::utils::random;
 
 use super::Entity;
 
-const MIN_GOLD_TO_STEAL: usize = 2;
-const MAX_GOLD_TO_STEAL: usize = 6;
+const MIN_GOLD_TO_STEAL: usize = 3;
+const MAX_GOLD_TO_STEAL: usize = 9;
 
 pub struct Thief {
     store: Arc<Store>,
