@@ -1,14 +1,14 @@
-use rand::random;
 use std::sync::Arc;
 use std::thread;
 use std::time::Duration;
 
 use crate::store::Store;
+use crate::utils::random;
 
 use super::Entity;
 
-const MIN_GOLD_TO_STEAL: usize = 3;
-const MAX_GOLD_TO_STEAL: usize = 9;
+const MIN_GOLD_TO_STEAL: usize = 2;
+const MAX_GOLD_TO_STEAL: usize = 6;
 
 pub struct Thief {
     store: Arc<Store>,
@@ -23,20 +23,13 @@ impl Thief {
 }
 
 impl Entity for Thief {
-    fn rest(&mut self) {
-        thread::sleep(Duration::from_secs(1));
-    }
-
     fn work(&mut self) {
-        let gold_to_steal = random::<Option<usize>>()
-            .map(|gold| gold % (MAX_GOLD_TO_STEAL - MIN_GOLD_TO_STEAL) + MIN_GOLD_TO_STEAL);
+        let gold_to_steal = random(MIN_GOLD_TO_STEAL, MAX_GOLD_TO_STEAL);
 
-        if let Some(gold) = gold_to_steal {
-            self.store.drain_gold(gold);
-        }
+        self.store.drain_gold(gold_to_steal);
     }
 
-    fn alive(&self) -> bool {
+    fn awake(&self) -> bool {
         self.store.is_open()
     }
 }

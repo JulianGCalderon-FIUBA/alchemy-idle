@@ -19,17 +19,13 @@ impl Trader {
 }
 
 impl Entity for Trader {
-    fn rest(&mut self) {
-        thread::sleep(Duration::from_secs(1));
-    }
-
     fn work(&mut self) {
         if self.store.extract_potions(1) {
-            self.store.add_gold(15);
+            self.store.add_gold(20);
         }
     }
 
-    fn alive(&self) -> bool {
+    fn awake(&self) -> bool {
         self.store.is_open()
     }
 }

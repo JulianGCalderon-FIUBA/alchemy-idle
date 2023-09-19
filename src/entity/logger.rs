@@ -37,7 +37,7 @@ impl Entity for Logger {
         println!("\tPotions: {}", potions);
     }
 
-    fn alive(&self) -> bool {
+    fn awake(&self) -> bool {
         self.store.is_open()
     }
 }

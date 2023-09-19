@@ -19,17 +19,13 @@ impl Alchemist {
 }
 
 impl Entity for Alchemist {
-    fn rest(&mut self) {
-        thread::sleep(Duration::from_secs(1));
-    }
-
     fn work(&mut self) {
-        if self.store.extract_ingredients(6) {
-            self.store.add_potions(2);
+        if self.store.extract_ingredients(3) {
+            self.store.add_potions(1);
         }
     }
 
-    fn alive(&self) -> bool {
+    fn awake(&self) -> bool {
         self.store.is_open()
     }
 }

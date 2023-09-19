@@ -19,17 +19,13 @@ impl Gatherer {
 }
 
 impl Entity for Gatherer {
-    fn rest(&mut self) {
-        thread::sleep(Duration::from_secs(1));
-    }
-
     fn work(&mut self) {
         if self.store.extract_gold(10) {
             self.store.add_ingredients(3);
         }
     }
 
-    fn alive(&self) -> bool {
+    fn awake(&self) -> bool {
         self.store.is_open()
     }
 }
